@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>История любви Глеба и Доминики</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      user-select: none;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      background-color: #0b0d14;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Стартовый экран */
+    #start-screen {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle, #241426 0%, #0a0b12 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+    }
+
+    .card {
+      background: rgba(30, 24, 40, 0.95);
+      border: 1px solid rgba(244, 114, 182, 0.35);
+      padding: 28px 24px;
+      border-radius: 16px;
+      text-align: center;
+      width: 85%;
+      max-width: 400px;
+      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.85);
+      color: #fff;
+    }
+
+    .tag {
+      display: inline-block;
+      background: #f472b6;
+      color: #1e1124;
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 20px;
+      margin-bottom: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    h1 {
+      font-size: 1.35rem;
+      color: #fdf2f8;
+      margin-bottom: 10px;
+      line-height: 1.3;
+    }
+
+    p {
+      color: #94a3b8;
+      font-size: 0.85rem;
+      line-height: 1.45;
+      margin-bottom: 22px;
+    }
+
+    button {
+      width: 100%;
+      padding: 13px;
+      background: #f472b6;
+      border: none;
+      color: #1e1124;
+      font-size: 1.05rem;
+      font-weight: 800;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(244, 114, 182, 0.4);
+      transition: transform 0.1s, background 0.2s;
+    }
+
+    button:active {
+      transform: scale(0.97);
+      background: #ec4899;
+    }
+
+    /* Экран скримера */
+    #prank-screen {
+      position: absolute;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: #000;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 100;
+    }
+
+    #prank-screen img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      animation: shake 0.08s infinite;
+    }
+
+    /* Эффект резкой тряски */
+    @keyframes shake {
+      0% { transform: translate(3px, 4px) rotate(0deg); }
+      20% { transform: translate(-4px, -3px) rotate(1.5deg); }
+      40% { transform: translate(4px, 2px) rotate(-1.5deg); }
+      60% { transform: translate(-2px, 3px) rotate(0deg); }
+      80% { transform: translate(3px, -4px) rotate(1.5deg); }
+      100% { transform: translate(-3px, 3px) rotate(-1.5deg); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Стартовое окно -->
+  <div id="start-screen">
+    <div class="card">
+      <span class="tag">Романтическая новелла</span>
+      <h1>История любви Глеба и Доминики</h1>
+      <p>Интерактивная визуальная новелла о самых искренних чувствах, выборе и судьбе.</p>
+      <button id="go-btn">Начать</button>
+    </div>
+  </div>
+
+  <!-- Экран скримера -->
+  <div id="prank-screen">
+    <img src="screamer.png" alt="Сюрприз!">
+  </div>
+
+  <!-- Зацикленный звук -->
+  <audio id="prank-audio" src="scream.mp3" preload="auto" loop></audio>
+
+  <script>
+    const goBtn = document.getElementById('go-btn');
+    const startScreen = document.getElementById('start-screen');
+    const prankScreen = document.getElementById('prank-screen');
+    const audio = document.getElementById('prank-audio');
+
+    goBtn.addEventListener('click', () => {
+      // Попытка развернуть во весь экран
+      if (document.documentElement.requestFullscreen) {
+        document.documentElement.requestFullscreen().catch(() => {});
+      }
+
+      // Прячем меню
+      startScreen.style.display = 'none';
+
+      // Показываем картинку
+      prankScreen.style.display = 'flex';
+
+      // Включаем зацикленный звук на максимум
+      audio.loop = true;
+      audio.volume = 1.0;
+      audio.currentTime = 0;
+      audio.play().catch(err => {
+        console.error("Ошибка воспроизведения:", err);
+      });
+    });
+  </script>
+</body>
+</html>
